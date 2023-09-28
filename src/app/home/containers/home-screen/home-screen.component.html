@@ -19,11 +19,12 @@
         <p class="font-montserrat-light">0{{ item.index }}</p>
         <div class="container h-96 w-72">
           <img src="{{ item.frontImageLink }}" alt="image" class="h-full w-full">
-          <div class="overlay"></div>
+          <div class="overlay flex items-center">
+            <div class="flex w-full justify-center text-2xl font-montserrat-bold">{{ item.description }}</div>
+          </div>
         </div>
         <p class="font-montserrat-bold">{{ item.name }}</p>
       </div>
     </div>
   </div>
-  <mat-icon svgIcon="line" class="w-[12000px]"></mat-icon>
 </div>

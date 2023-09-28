@@ -7,7 +7,7 @@ import { Title } from "@angular/platform-browser";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  private title = 'Flower Gallery';
+  title = 'Flower Gallery';
 
   constructor(private titleService:Title) {
     this.titleService.setTitle(this.title);
