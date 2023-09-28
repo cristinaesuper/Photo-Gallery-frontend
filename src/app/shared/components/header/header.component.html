@@ -1,7 +1,7 @@
 <div class="fixed flex flex-row w-full bg-transparent justify-between">
-  <app-button [label]="'MENU'" (event)="openMenu()"></app-button>
+  <app-button [label]="'MENU'" (press)="openMenu()"></app-button>
   <app-menu *ngIf="showMenu"></app-menu>
   <p class="font-montserrat-bold text-9xl text-accent-dark mt-6">Flower Gallery</p>
-  <app-button [label]="'CART'" (event)="openCart()"></app-button>
+  <app-button [label]="'CART'" (press)="openCart()"></app-button>
   <app-cart *ngIf="showCart"></app-cart>
 </div>

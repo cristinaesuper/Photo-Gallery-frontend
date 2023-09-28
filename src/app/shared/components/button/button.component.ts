@@ -12,9 +12,9 @@ import {MatButtonModule} from "@angular/material/button";
 })
 export class ButtonComponent {
   @Input() label = '';
-  @Output() event = new EventEmitter;
+  @Output() press = new EventEmitter;
 
   onClick(): void{
-    this.event.emit();
+    this.press.emit();
   }
 }

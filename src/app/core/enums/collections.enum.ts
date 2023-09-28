@@ -31,13 +31,13 @@ export enum CollectionItemFrontImageLink {
   COLLECTION_08 = '/assets/images/collection_08.jpg'
 }
 
-export enum CollectionItemBackImageLink {
-  COLLECTION_01 = '/assets/images/collection_09.jpg',
-  COLLECTION_02 = '/assets/images/collection_10.jpg',
-  COLLECTION_03 = '/assets/images/collection_11.jpg',
-  COLLECTION_04 = '/assets/images/collection_12.jpg',
-  COLLECTION_05 = '/assets/images/collection_13.jpg',
-  COLLECTION_06 = '/assets/images/collection_14.jpg',
-  COLLECTION_07 = '/assets/images/collection_15.jpg',
-  COLLECTION_08 = '/assets/images/collection_16.jpg'
+export enum CollectionItemDescription {
+  COLLECTION_01 = 'VINTAGE WALL',
+  COLLECTION_02 = 'MODERN WALL',
+  COLLECTION_03 = 'GARDEN',
+  COLLECTION_04 = 'SHOWER',
+  COLLECTION_05 = 'WINDOW',
+  COLLECTION_06 = 'SEASIDE HOUSE',
+  COLLECTION_07 = 'BATHROOM',
+  COLLECTION_08 = 'BOOKSHELF'
 }
