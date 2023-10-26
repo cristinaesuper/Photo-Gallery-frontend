@@ -1,0 +1,36 @@
+<div class="w-full h-screen bg-white flex justify-center flex-col items-center">
+  <div class="flex w-[70%] h-[85%] ml-20 mt-20 rounded-lg bg-secondary bg-opacity-25 justify-center">
+    <div class="w-[50%] h-full flex justify-center mr-10">
+      <img src="/assets/images/sign-up.jpg" alt="image" class="rounded-l-lg">
+    </div>
+    <div class="mt-4 w-[50%] flex flex-col justify-center">
+      <h1 class="font-montserrat-bold text-8xl text-accent-dark mt-6">Sign up</h1>
+      <div class="h-[70%] grid grid-cols-1 grid-flow-row mt-8">
+        <app-form-input [placeholder]="'Jane Doe'" [inputTitle]="'Your name'"></app-form-input>
+        <app-form-input [placeholder]="'jane@doe.com'" [inputTitle]="'Email'"></app-form-input>
+        <app-form-input [fieldTextType]="false" [inputTitle]="'Password'"></app-form-input>
+        <app-form-dropdown
+          [placeholder]="'Country'"
+          [inputTitle]="'Country'"
+          [list]="countries"
+          (selectedItem)="getSelectedCountry($event)">
+        </app-form-dropdown>
+        <app-form-dropdown
+          [placeholder]="'State'"
+          [inputTitle]="'State'"
+          [list]="states"
+          (selectedItem)="getSelectedState($event)">
+        </app-form-dropdown>
+        <app-form-dropdown
+          [placeholder]="'City'"
+          [inputTitle]="'City'"
+          [list]="cities"
+          (selectedItem)="getSelectedCity($event)">
+        </app-form-dropdown>
+      </div>
+      <div class="w-full flex">
+        <app-button [label]="'Create account'" (press)="goToSuccess()" class="mat-mdc-button"></app-button>
+      </div>
+    </div>
+  </div>
+</div>

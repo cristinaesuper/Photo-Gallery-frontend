@@ -4,6 +4,7 @@ import {ShopScreenComponent} from "./shop/containers";
 import {AboutScreenComponent} from "./about/containers";
 import {ArchiveScreenComponent} from "./archive/containers";
 import {HomeScreenComponent} from "./home/containers";
+import {SignUpComponent} from "./sign-up/containers";
 
 const routes: Routes = [
   { path: '',
@@ -17,7 +18,10 @@ const routes: Routes = [
   },
   { path: 'archive',
     component: ArchiveScreenComponent
-  }
+  },
+  { path: 'sign-up',
+    component: SignUpComponent
+  },
 ];
 
 @NgModule({

@@ -26,4 +26,8 @@ export class MenuComponent{
   toArchive(): void {
     this.router.navigate(['archive']);
   }
+
+  toSignUp(): void {
+    this.router.navigate(['sign-up']);
+  }
 }

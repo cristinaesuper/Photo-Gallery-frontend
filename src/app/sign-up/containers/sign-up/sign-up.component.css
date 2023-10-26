@@ -1,0 +1,12 @@
+img {
+  height: 100%;
+  width: 100%;
+  margin-right: 15px
+}
+
+
+.mat-mdc-button:not(:disabled) {
+  background-color: #994b00 !important;
+  border-radius: 12px;
+  width: 170px;
+}

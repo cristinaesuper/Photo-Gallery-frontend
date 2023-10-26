@@ -8,6 +8,10 @@ import { ButtonComponent } from './shared/components/button/button.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ProgressBarComponent } from './shared/components/progress-bar/progress-bar.component';
 import {CommonModule} from "@angular/common";
+import { FormDropdownComponent } from './shared/components/form-dropdown/form-dropdown.component';
+import {SignUpModule} from "./sign-up/sign-up.module";
+import {HttpClientModule} from "@angular/common/http";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -16,10 +20,15 @@ import {CommonModule} from "@angular/common";
   imports: [
     BrowserModule,
     HomeModule,
+    SignUpModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
     CommonModule,
     BrowserAnimationsModule,
     ButtonComponent,
     ProgressBarComponent,
+    FormDropdownComponent,
     AppRoutingModule
   ],
   providers: [],
