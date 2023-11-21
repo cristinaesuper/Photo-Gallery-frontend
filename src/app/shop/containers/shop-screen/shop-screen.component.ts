@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./shop-screen.component.css']
 })
 export class ShopScreenComponent {
+  protected showMenu = false;
 
+  openMenu(): void{
+    this.showMenu = !this.showMenu;
+  }
 }

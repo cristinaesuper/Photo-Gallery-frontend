@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./about-screen.component.css']
 })
 export class AboutScreenComponent {
+  protected showMenu = false;
 
+  openMenu(): void{
+    this.showMenu = !this.showMenu;
+  }
 }

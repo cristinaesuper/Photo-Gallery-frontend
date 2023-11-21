@@ -11,6 +11,7 @@ import {MatButtonModule} from "@angular/material/button";
   styleUrls: ['./button.component.css']
 })
 export class ButtonComponent {
+  @Input() type = '';
   @Input() label = '';
   @Output() press = new EventEmitter;
 

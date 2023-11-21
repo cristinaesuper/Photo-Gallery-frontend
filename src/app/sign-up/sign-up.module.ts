@@ -8,6 +8,9 @@ import {CountriesService} from "./services";
 import {CountriesRepository} from "./repositories";
 import {FormInputComponent} from "../shared/components/form-input/form-input.component";
 import {ButtonComponent} from "../shared/components/button/button.component";
+import {MatInputModule} from "@angular/material/input";
+import {HeaderComponent} from "../shared/components/header/header.component";
+import {MenuComponent} from "../shared/components/menu/menu.component";
 
 @NgModule({
   declarations: [
@@ -22,6 +25,9 @@ import {ButtonComponent} from "../shared/components/button/button.component";
     CommonModule,
     FormInputComponent,
     ButtonComponent,
+    MatInputModule,
+    HeaderComponent,
+    MenuComponent,
   ],
   providers: [CountriesService, CountriesRepository]
 })

@@ -1,6 +1,5 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Collections} from "../../../core/constants/collections";
-import {fromEvent, map, pairwise} from "rxjs";
 
 @Component({
   selector: 'app-home-screen',

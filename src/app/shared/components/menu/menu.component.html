@@ -1,6 +1,8 @@
 <div class="absolute top-0 left-0 flex flex-col w-96 h-screen bg-secondary text-left space-y-6 pt-24 pl-28">
+  <app-button [label]="'HOME'" (press)="toHome()"></app-button>
   <app-button [label]="'SHOP'" (press)="toShop()"></app-button>
   <app-button [label]="'ABOUT'" (press)="toAbout()"></app-button>
   <app-button [label]="'ARCHIVE'" (press)="toArchive()"></app-button>
   <app-button [label]="'SIGN-UP'" (press)="toSignUp()"></app-button>
+  <app-button [label]="'LOG IN'" (press)="toLogIn()"></app-button>
 </div>

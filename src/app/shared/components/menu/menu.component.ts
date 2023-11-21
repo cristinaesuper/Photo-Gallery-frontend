@@ -15,6 +15,10 @@ export class MenuComponent{
 
   constructor(private router: Router){}
 
+  toHome(): void {
+    this.router.navigate(['home']);
+  }
+
   toShop(): void {
     this.router.navigate(['shop']);
   }
@@ -29,5 +33,9 @@ export class MenuComponent{
 
   toSignUp(): void {
     this.router.navigate(['sign-up']);
+  }
+
+  toLogIn(): void {
+    this.router.navigate(['login']);
   }
 }

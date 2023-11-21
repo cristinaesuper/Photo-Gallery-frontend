@@ -1,6 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatInputModule} from "@angular/material/input";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormControlName, FormGroup, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   standalone: true,
@@ -17,4 +17,7 @@ export class FormInputComponent {
   @Input() inputTitle = '';
   @Input() required = false;
   @Input() fieldTextType = true;
+  @Input() name = '';
+  @Input() formControlName: string | null | undefined = '';
+  @Input() form: FormGroup = new FormGroup<any>({});
 }

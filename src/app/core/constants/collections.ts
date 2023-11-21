@@ -1,4 +1,4 @@
-import {collectionItem} from "../types/collection-item.type";
+import {CollectionItem} from "../types";
 import {
   CollectionItemDescription,
   CollectionItemFrontImageLink,
@@ -6,7 +6,7 @@ import {
   CollectionItemName
 } from "../enums/collections.enum";
 
-export const Collections: collectionItem[] = [
+export const Collections: CollectionItem[] = [
   { index: CollectionItemIndex.COLLECTION_01,
     name: CollectionItemName.COLLECTION_01,
     frontImageLink: CollectionItemFrontImageLink.COLLECTION_01,

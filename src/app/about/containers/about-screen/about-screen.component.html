@@ -1,4 +1,6 @@
-<div class="fixed flex flex-row w-full bg-transparent justify-between">
+<div class="static flex flex-row w-full bg-transparent justify-between">
+  <app-button class="absolute top-0 left-0" [label]="'MENU'" (press)="openMenu()"></app-button>
+  <app-menu *ngIf="showMenu"></app-menu>
   <div class="w-full flex flex-col justify-center items-center mt-10">
     <h1 class="font-montserrat-bold text-6xl text-accent-dark mt-6">About!</h1>
     <h1 class="font-montserrat-bold text-xl text-accent-dark mt-6">(Go to sign-up)</h1>

@@ -5,9 +5,13 @@ import {AboutScreenComponent} from "./about/containers";
 import {ArchiveScreenComponent} from "./archive/containers";
 import {HomeScreenComponent} from "./home/containers";
 import {SignUpComponent} from "./sign-up/containers";
+import {LoginComponent} from "./login/containers";
 
 const routes: Routes = [
   { path: '',
+    component: HomeScreenComponent
+  },
+  { path: 'home',
     component: HomeScreenComponent
   },
   { path: 'shop',
@@ -21,6 +25,9 @@ const routes: Routes = [
   },
   { path: 'sign-up',
     component: SignUpComponent
+  },
+  { path: 'login',
+    component: LoginComponent
   },
 ];
 

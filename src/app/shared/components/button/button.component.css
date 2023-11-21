@@ -1,6 +1,8 @@
 .button {
-  display: inline-block;
   font-family: montserrat, serif;
   font-size: 20px;
+  justify-self: center;
+  text-align: center;
+  display: inline-block;
 }
 

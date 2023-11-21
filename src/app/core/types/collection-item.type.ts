@@ -1,4 +1,4 @@
-export type collectionItem = {
+export type CollectionItem = {
   index: number,
   name: string,
   frontImageLink: string,

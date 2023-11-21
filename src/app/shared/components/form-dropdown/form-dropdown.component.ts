@@ -22,6 +22,7 @@ export class FormDropdownComponent {
   @Input() inputTitle = '';
   @Input() placeholder = '';
   @Input() list = [''];
+  @Input() name = '';
   @Output() selectedItem = new EventEmitter<string>();
 
   protected selection = new FormControl();
