@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AboutScreenComponent } from './containers/about-screen/about-screen.component';
+import { ProfileScreenComponent } from './containers';
 import {ButtonComponent} from "../shared/components/button/button.component";
 import {MenuComponent} from "../shared/components/menu/menu.component";
 
@@ -8,7 +8,7 @@ import {MenuComponent} from "../shared/components/menu/menu.component";
 
 @NgModule({
   declarations: [
-    AboutScreenComponent
+    ProfileScreenComponent
   ],
     imports: [
         CommonModule,
@@ -16,4 +16,4 @@ import {MenuComponent} from "../shared/components/menu/menu.component";
         MenuComponent
     ]
 })
-export class AboutModule { }
+export class ProfileModule { }

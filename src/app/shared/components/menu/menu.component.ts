@@ -23,8 +23,8 @@ export class MenuComponent{
     this.router.navigate(['shop']);
   }
 
-  toAbout(): void {
-    this.router.navigate(['about']);
+  toProfile(): void {
+    this.router.navigate(['profile']);
   }
 
   toArchive(): void {

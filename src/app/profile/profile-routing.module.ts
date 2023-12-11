@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {AboutScreenComponent} from "./containers";
+import {ProfileScreenComponent} from "./containers";
 
 
 const routes: Routes = [
   { path: '',
-    component: AboutScreenComponent
+    component: ProfileScreenComponent
   },
-  { path: 'about',
-    component: AboutScreenComponent
+  { path: 'profile',
+    component: ProfileScreenComponent
   }
 ];
 
@@ -16,4 +16,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AboutRoutingModule { }
+export class ProfileRoutingModule { }

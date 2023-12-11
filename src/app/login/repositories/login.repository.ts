@@ -6,6 +6,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class LoginRepository {
   private backendApi = 'http://localhost:3000';
+  private tokenKey = 'authToken';
 
   constructor(private http: HttpClient){}
 
@@ -19,5 +20,13 @@ export class LoginRepository {
 
   login(credentials: { email: string; password: string }) {
     return this.http.post<any>(`${this.backendApi}/users/login`, credentials);
+  }
+
+  setToken(token: string) {
+    localStorage.setItem(this.tokenKey, token);
+  }
+
+  getToken() {
+    return localStorage.getItem(this.tokenKey);
   }
 }

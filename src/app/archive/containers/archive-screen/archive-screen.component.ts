@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import { Router } from "@angular/router";
 import { ArchiveService } from "../../services";
+import {User} from "../../../core/types";
+import {LoginService} from "../../../login/services";
 
 @Component({
   selector: 'app-archive-screen',
@@ -10,15 +12,34 @@ import { ArchiveService } from "../../services";
 export class ArchiveScreenComponent implements OnInit{
   public safeImages: string[] = [];
 
+  protected currentUser: User | null = {name: '', email: '', password: ''};
   protected loading = true;
+  protected showUpload = false;
+  protected showMenu = false;
   protected fileList: File[] = [];
   protected previewFiles: string[] = [];
 
   constructor(private router: Router,
-              private archiveService: ArchiveService) {}
+              private archiveService: ArchiveService,
+              private loginService: LoginService) {}
 
   ngOnInit() {
-    this.archiveService.getImages().subscribe(
+    // this.archiveService.getImages().subscribe(
+    //   (images: any) => {
+    //     this.safeImages = images;
+    //   },
+    //   (error: any) => {
+    //     console.error('Error adding images:', error);
+    //   }
+    // );
+
+    this.loginService.getCurrentUser().subscribe(
+      (user: User | null) => {
+        this.currentUser = user
+      }
+    );
+
+    this.archiveService.getImagesByUserId('2').subscribe(
       (images: any) => {
         this.safeImages = images;
       },
@@ -41,7 +62,6 @@ export class ArchiveScreenComponent implements OnInit{
         reader.onload = (e) => {
           if (e.target && typeof e.target.result === 'string') {
             const previewFile = e.target.result;
-            console.log(previewFile);
             this.previewFiles.push(previewFile);
             this.fileList.push(files[i]);
           }
@@ -49,6 +69,8 @@ export class ArchiveScreenComponent implements OnInit{
         reader.readAsDataURL(files[i]);
       }
     }
+
+    this.showUpload = true;
   }
 
   uploadFiles() {
@@ -64,5 +86,9 @@ export class ArchiveScreenComponent implements OnInit{
         console.error('Error adding images:', error);
       }
     );
+  }
+
+  openMenu(): void{
+    this.showMenu = !this.showMenu;
   }
 }

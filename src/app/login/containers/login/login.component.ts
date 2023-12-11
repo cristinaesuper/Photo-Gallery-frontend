@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormBuilder, Validators } from "@angular/forms";
-import { SignUpService } from "../../../sign-up/services";
 import {Login, User} from "../../../core/types";
 import { LoginService } from "../../services";
 
@@ -11,7 +10,7 @@ import { LoginService } from "../../services";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  protected users: User[] = [];
+  protected currentUser: User | null = {name: '', email: '', password: ''};
   protected showMenu = false;
 
   public loginForm = this.formBuilder.group({
@@ -20,16 +19,14 @@ export class LoginComponent {
   });
 
   constructor(private router: Router,
-              private signUpService: SignUpService,
               private loginService: LoginService,
               private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    this.signUpService.getUsers().subscribe(
-      (users: User[]) => {
-        this.users = users;
-        console.log(this.users);
-      }
+    this.loginService.getCurrentUser().subscribe(
+      (user: User | null) => {
+          this.currentUser = user
+        }
     );
   }
 
@@ -41,22 +38,6 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const userData = this.loginForm.value;
 
-      // this.loginService.getUserByEmail(userData.email).subscribe(
-      //   (userExists: boolean) => {
-      //     if (userExists) {
-      //       console.log('User exists!');
-      //       // Perform actions if the user exists
-      //     } else {
-      //       console.log('User does not exist!');
-      //       // Perform actions if the user does not exist
-      //     }
-      //   },
-      //   (error) => {
-      //     console.error('Error checking user existence:', error);
-      //     // Handle error
-      //   }
-      // );
-
       if (userData && typeof userData.email === 'string' && typeof userData.password === 'string'){
 
         const loginData: Login = {
@@ -67,6 +48,8 @@ export class LoginComponent {
         this.loginService.login(loginData).subscribe(
           (user) => {
             if (user) {
+              // this.loginService.setToken(response.token);
+
               this.router.navigate(['archive']);
             }
           },

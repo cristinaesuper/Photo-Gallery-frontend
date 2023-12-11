@@ -1,14 +1,15 @@
-import { User } from '../../core/types';
 import { Injectable } from '@angular/core';
-import {LoginRepository} from "../repositories";
-import {HttpClient} from "@angular/common/http";
-import {map} from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject, map, Observable } from "rxjs";
+import { User } from '../../core/types';
+import { LoginRepository } from "../repositories";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  users: User[] = [];
+  private userSubject = new BehaviorSubject<User | null>(null);
+  private user$ : Observable<User | null> = this.userSubject.asObservable();
 
   constructor(private http: HttpClient, private loginRepository: LoginRepository){}
 
@@ -31,6 +32,22 @@ export class LoginService {
   }
 
   login(credentials: { email: string; password: string }) {
-    return this.loginRepository.login(credentials);
+    return this.loginRepository.login(credentials)
+      .pipe(map(user => {
+        this.userSubject.next(user);
+        return user;
+      }));
+  }
+
+  getCurrentUser(): Observable<User | null> {
+    return this.user$;
+  }
+
+  setToken(token: string) {
+    this.loginRepository.setToken(token);
+  }
+
+  getToken() {
+    return this.loginRepository.getToken();
   }
 }

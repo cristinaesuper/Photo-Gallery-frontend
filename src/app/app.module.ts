@@ -15,7 +15,7 @@ import {SignUpModule} from "./sign-up/sign-up.module";
 import {LoginModule} from "./login/login.module";
 import {ArchiveModule} from "./archive/archive.module";
 import {ShopModule} from "./shop/shop.module";
-import {AboutModule} from "./about/about.module";
+import {ProfileModule} from "./profile/profile.module";
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import {AboutModule} from "./about/about.module";
   ],
   imports: [
     BrowserModule,
-    AboutModule,
+    ProfileModule,
     ArchiveModule,
     HomeModule,
     LoginModule,

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {ShopScreenComponent} from "./shop/containers";
-import {AboutScreenComponent} from "./about/containers";
+import {ProfileScreenComponent} from "./profile/containers";
 import {ArchiveScreenComponent} from "./archive/containers";
 import {HomeScreenComponent} from "./home/containers";
 import {SignUpComponent} from "./sign-up/containers";
@@ -17,8 +17,8 @@ const routes: Routes = [
   { path: 'shop',
     component: ShopScreenComponent
   },
-  { path: 'about',
-    component: AboutScreenComponent
+  { path: 'profile',
+    component: ProfileScreenComponent
   },
   { path: 'archive',
     component: ArchiveScreenComponent

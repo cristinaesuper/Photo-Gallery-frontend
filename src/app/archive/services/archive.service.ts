@@ -21,6 +21,16 @@ export class ArchiveService {
     );
   }
 
+  getImagesByUserId(userId: any) {
+    return this.archiveRepository.getImagesByUserId(userId).pipe(
+      map((response: any) => {
+        return response.map((image: any) => {
+          return image;
+        });
+      })
+    );
+  }
+
   addImage(image: FormData){
     return this.archiveRepository.postImage(image);
   }

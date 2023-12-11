@@ -13,6 +13,10 @@ export class ArchiveRepository {
     return this.http.get(`${this.backendApi}/images`);
   }
 
+  getImagesByUserId(userId: any){
+    return this.http.get(`${this.backendApi}/images/${userId}`);
+  }
+
   postImage(image: FormData) {
     return this.http.post(`${this.backendApi}/images`, image);
   }
