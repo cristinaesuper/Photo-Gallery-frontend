@@ -68,9 +68,7 @@ export class SignUpComponent implements OnInit{
   goToSuccess() {
     if (this.userForm.valid) {
       const userData = this.userForm.value;
-      const newUser: User = {name: userData.name, email: userData.email, password: userData.password};
-
-      console.log(this.userForm.value);
+      const newUser = {name: userData.name, email: userData.email, password: userData.password};
 
       this.signUpService.createUser(newUser).subscribe(
         (response: any) => {},

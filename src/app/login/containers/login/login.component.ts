@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormBuilder, Validators } from "@angular/forms";
-import {Login, User} from "../../../core/types";
+import { Login } from "../../../core/types";
 import { LoginService } from "../../services";
 
 @Component({
@@ -10,7 +10,7 @@ import { LoginService } from "../../services";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  protected currentUser: User | null = {name: '', email: '', password: ''};
+  protected currentUser = {};
   protected showMenu = false;
 
   public loginForm = this.formBuilder.group({
@@ -24,7 +24,7 @@ export class LoginComponent {
 
   ngOnInit() {
     this.loginService.getCurrentUser().subscribe(
-      (user: User | null) => {
+      (user: any) => {
           this.currentUser = user
         }
     );

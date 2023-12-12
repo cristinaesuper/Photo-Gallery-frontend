@@ -18,7 +18,7 @@ export class SignUpRepository {
     return this.http.get(`${this.backendApi}/users/${email}`);
   }
 
-  postUser(user: User) {
+  postUser(user: any) {
     return this.http.post(`${this.backendApi}/users`, user);
   }
 

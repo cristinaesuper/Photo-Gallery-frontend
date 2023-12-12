@@ -35,6 +35,7 @@ export class LoginService {
     return this.loginRepository.login(credentials)
       .pipe(map(user => {
         this.userSubject.next(user);
+        localStorage.setItem('currentUser', JSON.stringify(user));
         return user;
       }));
   }

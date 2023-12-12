@@ -32,7 +32,7 @@ export class SignUpService {
     );
   }
 
-  createUser(user: User){
+  createUser(user: any){
     return this.signUpRepository.postUser(user);
   }
 

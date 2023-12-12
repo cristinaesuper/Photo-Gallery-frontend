@@ -1,12 +1,81 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+import { User } from "../../../core/types";
+import { ProfileService } from "../../services";
 
 @Component({
   selector: 'app-profile-screen',
   templateUrl: './profile-screen.component.html',
   styleUrls: ['./profile-screen.component.css']
 })
-export class ProfileScreenComponent {
+export class ProfileScreenComponent implements OnInit {
+  public safeImages: string[] = [];
+
+  protected currentUser: User = {id: 0, name: '', email: '', password: ''};
+  protected loading = true;
+  protected showUpload = false;
   protected showMenu = false;
+  protected fileList: File[] = [];
+  protected previewFiles: string[] = [];
+
+  constructor(private router: Router,
+              private profileService: ProfileService) {}
+
+  ngOnInit() {
+    // daca fac cu behav subject, la refresh se pierde current user cum nu folosesc tokene
+    // loc de imbunatatire
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+
+    if (this.currentUser) {
+      this.profileService.getImagesByUserId(this.currentUser.id).subscribe(
+        (images: any) => {
+          this.safeImages = images;
+        },
+        (error: any) => {
+          console.error('Error adding images:', error);
+        }
+      );
+    }
+
+    this.loading = false;
+  }
+
+  onFileSelected($event: Event){
+    const inputElement = $event.target as HTMLInputElement;
+
+    if (inputElement.files)  {
+      const files: FileList = inputElement.files;
+
+      for (let i = 0; i < files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          if (e.target && typeof e.target.result === 'string') {
+            const previewFile = e.target.result;
+            this.previewFiles.push(previewFile);
+            this.fileList.push(files[i]);
+          }
+        };
+        reader.readAsDataURL(files[i]);
+      }
+    }
+
+    this.showUpload = true;
+  }
+
+  uploadFiles() {
+    const formData = new FormData();
+
+    this.fileList.forEach((uploadedFile: File) => {
+      formData.append('image', uploadedFile);
+    });
+
+    this.profileService.addImage(formData).subscribe(
+      (response: any) => {},
+      (error: any) => {
+        console.error('Error adding images:', error);
+      }
+    );
+  }
 
   openMenu(): void{
     this.showMenu = !this.showMenu;
