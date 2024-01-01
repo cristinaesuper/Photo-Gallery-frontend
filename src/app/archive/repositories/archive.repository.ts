@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { Like } from "../../core/types";
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,11 @@ export class ArchiveRepository {
     return this.http.get(`${this.backendApi}/images`);
   }
 
-  getImagesByUserId(userId: any){
-    return this.http.get(`${this.backendApi}/images/${userId}`);
+  postLike(like: Like) {
+    return this.http.post(`${this.backendApi}/likes`, like);
   }
 
-  postImage(image: FormData) {
-    return this.http.post(`${this.backendApi}/images`, image);
+  getLikedImagesByUser(userId: any){
+    return this.http.get(`${this.backendApi}/likes/user/${userId}`);
   }
 }

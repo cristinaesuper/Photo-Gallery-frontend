@@ -1,7 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { CommonModule } from "@angular/common";
 import { Observable } from "rxjs";
-import {MatProgressBarModule} from "@angular/material/progress-bar";
-import {CommonModule} from "@angular/common";
 
 @Component({
   standalone: true,

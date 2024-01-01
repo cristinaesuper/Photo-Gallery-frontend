@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {ArchiveScreenComponent} from "./containers";
+import { ArchiveScreenComponent } from "./containers";
 
 const routes: Routes = [
   { path: '',

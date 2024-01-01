@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import {ShopScreenComponent} from "./shop/containers";
-import {ProfileScreenComponent} from "./profile/containers";
-import {ArchiveScreenComponent} from "./archive/containers";
-import {HomeScreenComponent} from "./home/containers";
-import {SignUpComponent} from "./sign-up/containers";
-import {LoginComponent} from "./login/containers";
+import { mapToCanActivate, RouterModule, Routes } from '@angular/router';
+import { CheckScreenComponent } from "./check/containers";
+import { ProfileScreenComponent } from "./profile/containers";
+import { ArchiveScreenComponent } from "./archive/containers";
+import { HomeScreenComponent } from "./home/containers";
+import { SignUpComponent } from "./sign-up/containers";
+import { LoginComponent } from "./login/containers";
+import { LoginGuard } from "./login/login.guard";
+import { SignUpGuard } from "./sign-up/sign-up.guard";
 
 const routes: Routes = [
   { path: '',
@@ -14,8 +16,8 @@ const routes: Routes = [
   { path: 'home',
     component: HomeScreenComponent
   },
-  { path: 'shop',
-    component: ShopScreenComponent
+  { path: 'check',
+    component: CheckScreenComponent
   },
   { path: 'profile',
     component: ProfileScreenComponent
@@ -24,10 +26,12 @@ const routes: Routes = [
     component: ArchiveScreenComponent
   },
   { path: 'sign-up',
-    component: SignUpComponent
+    component: SignUpComponent,
+    canActivate: mapToCanActivate([SignUpGuard])
   },
   { path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: mapToCanActivate([LoginGuard])
   },
 ];
 

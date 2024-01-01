@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map } from "rxjs";
 import { ArchiveRepository } from "../repositories";
+import { Like } from "../../core/types";
 
 @Injectable({
   providedIn: 'root'
@@ -18,17 +19,17 @@ export class ArchiveService {
     );
   }
 
-  getImagesByUserId(userId: any) {
-    return this.archiveRepository.getImagesByUserId(userId).pipe(
+  createLike(like: Like){
+    return this.archiveRepository.postLike(like);
+  }
+
+  getLikedImagesByUser(userId: any) {
+    return this.archiveRepository.getLikedImagesByUser(userId).pipe(
       map((response: any) => {
         return response.map((image: any) => {
           return image;
         });
       })
-    );
-  }
-
-  addImage(image: FormData){
-    return this.archiveRepository.postImage(image);
+    );;
   }
 }

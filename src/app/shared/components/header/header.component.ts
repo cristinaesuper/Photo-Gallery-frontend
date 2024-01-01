@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {ButtonComponent} from "../button/button.component";
-import {MatMenuModule} from "@angular/material/menu";
-import {MenuComponent} from "../menu/menu.component";
-import {NgIf} from "@angular/common";
-import {CartComponent} from "../cart/cart.component";
+import { Component } from '@angular/core';
+import { NgIf } from "@angular/common";
+import { MatMenuModule } from "@angular/material/menu";
+import { ButtonComponent } from "../button/button.component";
+import { MenuComponent } from "../menu/menu.component";
+import { CartComponent } from "../cart/cart.component";
 
 @Component({
   standalone: true,

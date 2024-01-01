@@ -9,12 +9,10 @@ import { ProfileService } from "../../services";
   styleUrls: ['./profile-screen.component.css']
 })
 export class ProfileScreenComponent implements OnInit {
-  public safeImages: string[] = [];
-
-  protected currentUser: User = {id: 0, name: '', email: '', password: ''};
+  protected imageUrls: string[] = [];
+  protected currentUser: User = { id: 0, name: '', email: '', password: '', admin: false };
   protected loading = true;
   protected showUpload = false;
-  protected showMenu = false;
   protected fileList: File[] = [];
   protected previewFiles: string[] = [];
 
@@ -22,14 +20,12 @@ export class ProfileScreenComponent implements OnInit {
               private profileService: ProfileService) {}
 
   ngOnInit() {
-    // daca fac cu behav subject, la refresh se pierde current user cum nu folosesc tokene
-    // loc de imbunatatire
     this.currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
 
     if (this.currentUser) {
       this.profileService.getImagesByUserId(this.currentUser.id).subscribe(
         (images: any) => {
-          this.safeImages = images;
+          this.imageUrls = images;
         },
         (error: any) => {
           console.error('Error adding images:', error);
@@ -64,20 +60,16 @@ export class ProfileScreenComponent implements OnInit {
 
   uploadFiles() {
     const formData = new FormData();
+    const currentDate = new Date().toString();
+    const userId = this.currentUser.id!.toString();
 
     this.fileList.forEach((uploadedFile: File) => {
       formData.append('image', uploadedFile);
+      formData.append('description', '');
+      formData.append('date', currentDate);
+      formData.append('userId', userId);
     });
 
-    this.profileService.addImage(formData).subscribe(
-      (response: any) => {},
-      (error: any) => {
-        console.error('Error adding images:', error);
-      }
-    );
-  }
-
-  openMenu(): void{
-    this.showMenu = !this.showMenu;
+    this.profileService.addImage(formData).subscribe();
   }
 }

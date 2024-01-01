@@ -1,0 +1,6 @@
+<div *ngFor="let image of images" class="flex justify-center">
+  <div>
+    <img [src]="image.url" alt="Image" width="250" height="250"/>
+    <mat-icon  (click)="onPress(image)" svgIcon="delete-full"></mat-icon>
+  </div>
+</div>

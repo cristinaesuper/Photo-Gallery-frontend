@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { ArchiveService } from "../../services";
-import { User } from "../../../core/types";
+import { Like, User } from "../../../core/types";
+import { Image } from "../../../core/types";
 
 @Component({
   selector: 'app-archive-screen',
@@ -9,23 +10,24 @@ import { User } from "../../../core/types";
   styleUrls: ['./archive-screen.component.css']
 })
 export class ArchiveScreenComponent implements OnInit {
-  public safeImages: string[] = [];
-
-  protected currentUser: User = {id: 0, name: '', email: '', password: ''};
+  protected safeImages: Image[] = [];
+  protected likedImages: string[] = [];
+  protected currentUser: User = { id: 0, name: '', email: '', password: '', admin: false };
+  protected like: Like = { userId: 0, imageId: 0 };
   protected loading = true;
-  protected showUpload = false;
-  protected showMenu = false;
-  protected fileList: File[] = [];
-  protected previewFiles: string[] = [];
+  protected showAll = true;
 
   constructor(private router: Router,
               private archiveService: ArchiveService) {}
 
   ngOnInit() {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+
     this.archiveService.getImages().subscribe(
       (images: any) => {
-        this.safeImages = images;
-      },
+        this.safeImages = images.map((image: any) => ({ ...image, liked: false }));
+        console.log(this.safeImages);
+        },
       (error: any) => {
         console.error('Error adding images:', error);
       }
@@ -34,44 +36,34 @@ export class ArchiveScreenComponent implements OnInit {
     this.loading = false;
   }
 
-  // onFileSelected($event: Event){
-  //   const inputElement = $event.target as HTMLInputElement;
-  //
-  //   if (inputElement.files)  {
-  //     const files: FileList = inputElement.files;
-  //
-  //     for (let i = 0; i < files.length; i++) {
-  //       const reader = new FileReader();
-  //       reader.onload = (e) => {
-  //         if (e.target && typeof e.target.result === 'string') {
-  //           const previewFile = e.target.result;
-  //           this.previewFiles.push(previewFile);
-  //           this.fileList.push(files[i]);
-  //         }
-  //       };
-  //       reader.readAsDataURL(files[i]);
-  //     }
-  //   }
-  //
-  //   this.showUpload = true;
-  // }
+  changeHeart(image: Image) {
+    if (this.currentUser) {
+      this.like.userId = image.userId;
+      this.like.imageId = image.id;
+      this.archiveService.createLike(this.like).subscribe(
+        (like) => {},
+        (error) => {
+          console.error('Login failed:', error);
+        })
+    }
 
-  // uploadFiles() {
-  //   const formData = new FormData();
-  //
-  //   this.fileList.forEach((uploadedFile: File) => {
-  //     formData.append('image', uploadedFile);
-  //   });
-  //
-  //   this.archiveService.addImage(formData).subscribe(
-  //     (response: any) => {},
-  //     (error: any) => {
-  //       console.error('Error adding images:', error);
-  //     }
-  //   );
-  // }
+    image.liked = !image.liked;
+  }
 
-  openMenu(): void{
-    this.showMenu = !this.showMenu;
+  showLikedImages() {
+    this.archiveService.getLikedImagesByUser(this.currentUser.id).subscribe(
+      (likedImages: any) => {
+        this.likedImages = likedImages;
+      },
+      (error) => {
+        console.error('Error adding liked images:', error);
+      }
+    );
+
+    this.changeView();
+  }
+
+  private changeView() {
+    this.showAll = !this.showAll;
   }
 }

@@ -11,7 +11,6 @@ import { LoginService } from "../../services";
 })
 export class LoginComponent {
   protected currentUser = {};
-  protected showMenu = false;
 
   public loginForm = this.formBuilder.group({
     email: ['', Validators.required],
@@ -30,10 +29,6 @@ export class LoginComponent {
     );
   }
 
-  openMenu(): void{
-    this.showMenu = !this.showMenu;
-  }
-
   goToHomePage() {
     if (this.loginForm.valid) {
       const userData = this.loginForm.value;
@@ -49,7 +44,6 @@ export class LoginComponent {
           (user) => {
             if (user) {
               // this.loginService.setToken(response.token);
-
               this.router.navigate(['archive']);
             }
           },

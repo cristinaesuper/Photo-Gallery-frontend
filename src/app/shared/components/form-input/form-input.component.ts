@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {MatInputModule} from "@angular/material/input";
-import {FormControl, FormControlName, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import { Component, Input, OnInit } from '@angular/core';
+import { MatInputModule } from "@angular/material/input";
+import { FormControl, FormControlName, FormGroup, ReactiveFormsModule } from "@angular/forms";
 
 @Component({
   standalone: true,

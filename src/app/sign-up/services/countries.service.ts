@@ -1,7 +1,7 @@
-import {CountriesRepository} from "../repositories";
-import {HttpClient} from "@angular/common/http";
-import {map} from "rxjs";
-import {Injectable} from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { map } from "rxjs";
+import { CountriesRepository } from "../repositories";
 
 @Injectable({
   providedIn:'root'

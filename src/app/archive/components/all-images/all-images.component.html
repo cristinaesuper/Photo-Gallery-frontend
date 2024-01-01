@@ -1,0 +1,6 @@
+<div *ngFor="let image of images" class="flex justify-center">
+  <div>
+    <img [src]="image.url" alt="Image" width="250" height="250"/>
+    <mat-icon  (click)="onPress(image)" svgIcon="{{ image.liked ? 'heart-full' : 'heart-empty' }}"></mat-icon>
+  </div>
+</div>

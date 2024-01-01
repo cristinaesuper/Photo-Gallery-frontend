@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Collections} from "../../../core/constants/collections";
+import { Component, OnInit } from '@angular/core';
+import { Collections } from "../../../core/constants/collections";
 
 @Component({
   selector: 'app-home-screen',

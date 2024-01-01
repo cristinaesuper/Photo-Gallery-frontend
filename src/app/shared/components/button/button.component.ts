@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {MatButtonModule} from "@angular/material/button";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
   standalone: true,
@@ -15,7 +15,7 @@ export class ButtonComponent {
   @Input() label = '';
   @Output() press = new EventEmitter;
 
-  onClick(): void{
+  onPress(): void{
     this.press.emit();
   }
 }

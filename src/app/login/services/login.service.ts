@@ -13,16 +13,6 @@ export class LoginService {
 
   constructor(private http: HttpClient, private loginRepository: LoginRepository){}
 
-  getUsers() {
-    return this.loginRepository.getUsers().pipe(
-      map((response: any) => {
-        return response.map((user: any) => {
-          return user;
-        });
-      })
-    );
-  }
-
   getUserByEmail(email: any) {
     return this.loginRepository.getUserByEmail(email).pipe(
       map((response: any) => {

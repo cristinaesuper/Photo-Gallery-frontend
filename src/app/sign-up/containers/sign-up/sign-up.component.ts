@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {CountriesService} from "../../services";
-import {SignUpService} from "../../services";
-import {User} from "../../../core/types"
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { MatDialog } from "@angular/material/dialog";
+import { CountriesService } from "../../services";
+import { SignUpService } from "../../services";
+import { DialogComponent } from "../../../shared/components/dialog/dialog.component";
 
 @Component({
   selector: 'app-sign-up',
@@ -12,39 +13,25 @@ import {User} from "../../../core/types"
 })
 export class SignUpComponent implements OnInit{
   protected countries = [''];
-  protected users: User[] = [];
   protected states = [''];
   protected cities = [''];
   protected selectedCountry = '';
   protected selectedState = '';
   protected selectedCity = '';
-  protected showMenu = false;
 
   public userForm = this.formBuilder.group({
     name: ['', Validators.required],
     password: ['', Validators.required],
-    email: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
   });
 
-  // public addressForm = this.formBuilder.group({
-  //   country: [''],
-  //   state: [''],
-  //   city: [''],
-  // });
-
-  constructor(private router: Router,
+  constructor(public dialog: MatDialog,
+              private router: Router,
               private countriesApi: CountriesService,
               private signUpService: SignUpService,
               private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    this.signUpService.getUsers().subscribe(
-      (users: User[]) => {
-        this.users = users;
-        console.log(this.users);
-      }
-    );
-
     this.countriesApi.getCountries().subscribe((countries: string[]) => this.countries = countries);
   }
 
@@ -61,8 +48,8 @@ export class SignUpComponent implements OnInit{
     this.selectedCity = selectedCity;
   }
 
-  openMenu(): void{
-    this.showMenu = !this.showMenu;
+  openDialog(dialogText: string) {
+    this.dialog.open(DialogComponent, {data: {dialogText}});
   }
 
   goToSuccess() {
@@ -77,9 +64,9 @@ export class SignUpComponent implements OnInit{
       );
 
       this.router.navigate(['archive']);
-    } else {
-      console.log('Form is invalid');
-    }
+    } else if (this.userForm.get('email')?.invalid) {
+        this.openDialog("Provide a valid email.");
+      }
   }
 
   goToLogin() {
@@ -90,10 +77,6 @@ export class SignUpComponent implements OnInit{
     return this.userForm.get('name')?.value;
   }
 
-  get nameControl() {
-    return this.userForm.get('name');
-  }
-
   get email() {
     return this.userForm.get('email')?.value;
   }
@@ -101,16 +84,4 @@ export class SignUpComponent implements OnInit{
   get password() {
     return this.userForm.get('password')?.value;
   }
-
-  // get country() {
-  //   return this.userForm.get('country')?.value;
-  // }
-  //
-  // get state() {
-  //   return this.userForm.get('state')?.value;
-  // }
-  //
-  // get city() {
-  //   return this.userForm.get('city')?.value;
-  // }
 }
