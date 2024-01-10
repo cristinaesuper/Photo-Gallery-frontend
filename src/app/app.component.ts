@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Title } from "@angular/platform-browser";
-import {User} from "./core/types";
+import { User } from "./core/types";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnChanges {
   title = 'Flower Gallery';
   protected showMenu = false;
   protected isAdmin: boolean | null | undefined = false;
@@ -15,6 +15,10 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    this.isAdmin = this.currentUser.admin;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
     this.isAdmin = this.currentUser.admin;
   }
 

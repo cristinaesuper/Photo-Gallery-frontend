@@ -1,5 +1,0 @@
-:host ::ng-deep app-button {
-  .mat-mdc-button:not(:disabled) {
-    color: white;
-  }
-}

@@ -8,6 +8,7 @@ import { Image } from "../../../core/types";
 })
 export class AllImagesComponent {
   @Input() images: Image[] = [];
+  @Input() isAuthenticated = false;
   @Output() press: EventEmitter<Image> = new EventEmitter;
 
   onPress(image: Image): void{

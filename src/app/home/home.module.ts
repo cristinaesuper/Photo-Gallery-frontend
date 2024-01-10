@@ -23,17 +23,17 @@ import { HomeRoutingModule } from "./home-routing.module";
   exports: [
     HomeScreenComponent
   ],
-    imports: [
-        HomeRoutingModule,
-        CommonModule,
-        HeaderComponent,
-        NgOptimizedImage,
-        RouterOutlet,
-        HttpClientModule,
-        MatIconModule,
-        MenuComponent,
-        BrowserAnimationsModule,
-        ProgressBarComponent
-    ]
+  imports: [
+      HomeRoutingModule,
+      CommonModule,
+      HeaderComponent,
+      NgOptimizedImage,
+      RouterOutlet,
+      HttpClientModule,
+      MatIconModule,
+      MenuComponent,
+      BrowserAnimationsModule,
+      ProgressBarComponent
+  ]
 })
 export class HomeModule { }

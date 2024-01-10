@@ -19,6 +19,9 @@ import { CheckModule } from "./check/check.module";
 import { ProfileModule } from "./profile/profile.module";
 import { MenuComponent } from "./shared/components/menu/menu.component";
 import { DialogComponent } from "./shared/components/dialog/dialog.component";
+import { ProfileGuard } from "./profile/profile.guard";
+import { SignUpGuard } from "./sign-up/sign-up.guard";
+import { LoginGuard } from "./login/login.guard";
 
 @NgModule({
   declarations: [
@@ -45,7 +48,11 @@ import { DialogComponent } from "./shared/components/dialog/dialog.component";
     MenuComponent,
     MatIconModule
   ],
-  providers: [],
+  providers: [
+    ProfileGuard,
+    SignUpGuard,
+    LoginGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -12,14 +12,14 @@ import { LoginService } from "./services";
   declarations: [
     LoginComponent
   ],
-    imports: [
-        CommonModule,
-        ButtonComponent,
-        ReactiveFormsModule,
-        FormsModule,
-        FormInputComponent,
-        MenuComponent
-    ],
+  imports: [
+      CommonModule,
+      ButtonComponent,
+      ReactiveFormsModule,
+      FormsModule,
+      FormInputComponent,
+      MenuComponent
+  ],
   providers: [LoginRepository, LoginService]
 })
 export class LoginModule { }

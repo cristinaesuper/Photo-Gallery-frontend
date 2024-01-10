@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { MatDialog } from "@angular/material/dialog";
+import { interval, startWith, switchMap } from "rxjs";
 import { User } from "../../../core/types";
 import { ProfileService } from "../../services";
+import { DialogComponent } from "../../../shared/components/dialog/dialog.component";
 
 @Component({
   selector: 'app-profile-screen',
@@ -14,23 +17,29 @@ export class ProfileScreenComponent implements OnInit {
   protected loading = true;
   protected showUpload = false;
   protected fileList: File[] = [];
-  protected previewFiles: string[] = [];
+  protected previewFile = '';
 
   constructor(private router: Router,
-              private profileService: ProfileService) {}
+              private profileService: ProfileService,
+              private dialog: MatDialog) {}
 
   ngOnInit() {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
 
     if (this.currentUser) {
-      this.profileService.getImagesByUserId(this.currentUser.id).subscribe(
-        (images: any) => {
-          this.imageUrls = images;
-        },
-        (error: any) => {
-          console.error('Error adding images:', error);
-        }
-      );
+      interval(5000)
+        .pipe(
+          startWith(0),
+          switchMap(() => this.profileService.getImagesByUserId(this.currentUser.id)
+        ))
+        .subscribe(
+          (images: any) => {
+            this.imageUrls = images;
+          },
+          (error: any) => {
+            console.error('Error getting images:', error);
+          }
+        );
     }
 
     this.loading = false;
@@ -40,19 +49,15 @@ export class ProfileScreenComponent implements OnInit {
     const inputElement = $event.target as HTMLInputElement;
 
     if (inputElement.files)  {
-      const files: FileList = inputElement.files;
-
-      for (let i = 0; i < files.length; i++) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          if (e.target && typeof e.target.result === 'string') {
-            const previewFile = e.target.result;
-            this.previewFiles.push(previewFile);
-            this.fileList.push(files[i]);
-          }
-        };
-        reader.readAsDataURL(files[i]);
-      }
+      const file: File = inputElement.files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target && typeof e.target.result === 'string') {
+          this.previewFile = e.target.result;
+          this.fileList = [file];
+        }
+      };
+      reader.readAsDataURL(file);
     }
 
     this.showUpload = true;
@@ -70,6 +75,19 @@ export class ProfileScreenComponent implements OnInit {
       formData.append('userId', userId);
     });
 
-    this.profileService.addImage(formData).subscribe();
+    this.profileService.addImage(formData).subscribe(
+      (images: any) => {
+        this.openDialog("Image successfully uploaded.");
+        this.fileList = [];
+        this.showUpload = false;
+      },
+      (error: any) => {
+        console.error('Error adding images:', error);
+      }
+    );
+  }
+
+  openDialog(dialogText: string) {
+    this.dialog.open(DialogComponent, {data: {dialogText}});
   }
 }

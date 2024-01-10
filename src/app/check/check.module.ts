@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
+import { MatIconModule } from "@angular/material/icon";
 import { CheckScreenComponent } from './containers';
 import { ButtonComponent } from "../shared/components/button/button.component";
 import { MenuComponent } from "../shared/components/menu/menu.component";
 import { NewImagesComponent } from "./components";
 import { CheckService } from "./services";
 import { CheckRepository } from "./repositories";
-import {MatIconModule} from "@angular/material/icon";
+import { DialogComponent } from "../shared/components/dialog/dialog.component";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {MatIconModule} from "@angular/material/icon";
     CommonModule,
     ButtonComponent,
     MenuComponent,
-    MatIconModule
+    MatIconModule,
+    DialogComponent
   ],
   providers: [DatePipe, CheckService, CheckRepository]
 })

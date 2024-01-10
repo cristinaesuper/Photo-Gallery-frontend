@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { forkJoin } from "rxjs";
 import { ArchiveService } from "../../services";
 import { Like, User } from "../../../core/types";
 import { Image } from "../../../core/types";
@@ -16,6 +17,7 @@ export class ArchiveScreenComponent implements OnInit {
   protected like: Like = { userId: 0, imageId: 0 };
   protected loading = true;
   protected showAll = true;
+  protected isAuthenticated = false;
 
   constructor(private router: Router,
               private archiveService: ArchiveService) {}
@@ -23,27 +25,46 @@ export class ArchiveScreenComponent implements OnInit {
   ngOnInit() {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
 
-    this.archiveService.getImages().subscribe(
-      (images: any) => {
-        this.safeImages = images.map((image: any) => ({ ...image, liked: false }));
-        console.log(this.safeImages);
+    this.isAuthenticated = !!this.currentUser.id;
+
+    if (this.isAuthenticated) {
+      forkJoin({
+        allImages: this.archiveService.getImages(),
+        likedImages: this.archiveService.getLikedImagesByUser(this.currentUser.id),
+      }).subscribe(
+        ({allImages, likedImages}) => {
+          this.safeImages = allImages.map((image: any) => ({
+            ...image,
+            liked: likedImages.some((likedImage: any) => likedImage === image.url)
+          }));
         },
-      (error: any) => {
-        console.error('Error adding images:', error);
-      }
-    );
+        (error: any) => {
+          console.error('Error adding images:', error);
+        }
+      );
+    }
+    else {
+      this.archiveService.getImages().subscribe(
+        (images: any) => {
+          this.safeImages = images.map((image: any) => (image));
+        },
+        (error: any) => {
+          console.error('Error adding images:', error);
+        }
+      );
+    }
 
     this.loading = false;
   }
 
   changeHeart(image: Image) {
     if (this.currentUser) {
-      this.like.userId = image.userId;
+      this.like.userId = this.currentUser.id;
       this.like.imageId = image.id;
       this.archiveService.createLike(this.like).subscribe(
         (like) => {},
         (error) => {
-          console.error('Login failed:', error);
+          console.error('Create like failed:', error);
         })
     }
 

@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from "@angular/router";
 import { NgIf } from "@angular/common";
 import { ButtonComponent } from "../button/button.component";
-import { User } from "../../../core/types";
+import { MatDialog } from "@angular/material/dialog";
+import { DialogComponent } from "../dialog/dialog.component";
 
 @Component({
   standalone: true,
@@ -16,9 +17,11 @@ import { User } from "../../../core/types";
 })
 export class MenuComponent {
   @Input() isAdmin = false;
+
   protected showMenu = true;
 
-  constructor(private router: Router){}
+  constructor(private router: Router,
+              private dialog: MatDialog){}
 
   toHome(): void {
     this.showMenu = false;
@@ -53,5 +56,11 @@ export class MenuComponent {
   toLogOut(): void {
     this.showMenu = false;
     localStorage.removeItem('currentUser');
+    this.openDialog("Successfully logged out.");
+    this.router.navigate(['home']);
+  }
+
+  openDialog(dialogText: string) {
+    this.dialog.open(DialogComponent, {data: {dialogText}});
   }
 }

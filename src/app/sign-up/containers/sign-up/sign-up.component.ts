@@ -11,7 +11,7 @@ import { DialogComponent } from "../../../shared/components/dialog/dialog.compon
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent implements OnInit{
+export class SignUpComponent implements OnInit {
   protected countries = [''];
   protected states = [''];
   protected cities = [''];
@@ -58,15 +58,22 @@ export class SignUpComponent implements OnInit{
       const newUser = {name: userData.name, email: userData.email, password: userData.password};
 
       this.signUpService.createUser(newUser).subscribe(
-        (response: any) => {},
-        (error: any) => { console.error('Error creating user:', error); }
-
+        (response: any) => {
+          this.router.navigate(['login']);
+          this.openDialog("Account successfully created.");
+        },
+        (error: any) => {
+          this.openDialog("An account with this email already exists.");
+        }
       );
-
-      this.router.navigate(['archive']);
-    } else if (this.userForm.get('email')?.invalid) {
+    }
+    else if (this.userForm.get('name')?.invalid
+      || this.userForm.get('password')?.invalid) {
+      this.openDialog("Complete all fields.");
+    }
+    else if (this.userForm.get('email')?.invalid) {
         this.openDialog("Provide a valid email.");
-      }
+    }
   }
 
   goToLogin() {

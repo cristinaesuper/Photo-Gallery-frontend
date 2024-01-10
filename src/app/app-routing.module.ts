@@ -8,6 +8,7 @@ import { SignUpComponent } from "./sign-up/containers";
 import { LoginComponent } from "./login/containers";
 import { LoginGuard } from "./login/login.guard";
 import { SignUpGuard } from "./sign-up/sign-up.guard";
+import { ProfileGuard } from "./profile/profile.guard";
 
 const routes: Routes = [
   { path: '',
@@ -20,7 +21,8 @@ const routes: Routes = [
     component: CheckScreenComponent
   },
   { path: 'profile',
-    component: ProfileScreenComponent
+    component: ProfileScreenComponent,
+    canActivate: mapToCanActivate([ProfileGuard])
   },
   { path: 'archive',
     component: ArchiveScreenComponent

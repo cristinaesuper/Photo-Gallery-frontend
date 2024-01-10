@@ -30,6 +30,6 @@ export class ArchiveService {
           return image;
         });
       })
-    );;
+    );
   }
 }

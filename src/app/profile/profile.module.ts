@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ProfileScreenComponent } from './containers';
 import { ButtonComponent } from "../shared/components/button/button.component";
 import { MenuComponent } from "../shared/components/menu/menu.component";
+import { AllImagesComponent } from "./components";
 
 
 
 @NgModule({
   declarations: [
-    ProfileScreenComponent
+    ProfileScreenComponent,
+    AllImagesComponent
   ],
     imports: [
         CommonModule,

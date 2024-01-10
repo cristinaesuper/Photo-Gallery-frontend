@@ -10,7 +10,7 @@ export class LoginGuard {
   constructor(public dialog: MatDialog) {}
   canActivate() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    const isAuthenticated = currentUser.id;
+    const isAuthenticated = !!currentUser.id;
 
     if (isAuthenticated) {
       this.openDialog("You are already logged in.");

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormBuilder, Validators } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
 import { Login } from "../../../core/types";
 import { LoginService } from "../../services";
+import { DialogComponent } from "../../../shared/components/dialog/dialog.component";
 
 @Component({
   selector: 'app-login',
@@ -19,7 +21,8 @@ export class LoginComponent {
 
   constructor(private router: Router,
               private loginService: LoginService,
-              private formBuilder: FormBuilder) {}
+              private formBuilder: FormBuilder,
+              public dialog: MatDialog) {}
 
   ngOnInit() {
     this.loginService.getCurrentUser().subscribe(
@@ -43,8 +46,15 @@ export class LoginComponent {
         this.loginService.login(loginData).subscribe(
           (user) => {
             if (user) {
-              // this.loginService.setToken(response.token);
-              this.router.navigate(['archive']);
+              if (user.admin) {
+                this.router.navigate(['check']);
+              }
+              else {
+                this.router.navigate(['archive']);
+              }
+            }
+            else {
+              this.openDialog("Wrong email or password.");
             }
           },
           (error) => {
@@ -53,6 +63,10 @@ export class LoginComponent {
         );
       }
     }
+  }
+
+  openDialog(dialogText: string) {
+    this.dialog.open(DialogComponent, {data: {dialogText}});
   }
 
   goToSignUp() {
